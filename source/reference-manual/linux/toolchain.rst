@@ -14,31 +14,35 @@ LmP uses by default ``clang`` as the compiler and ``llvm`` as the runtime.
 Exists however some issues when using the ``clang`` and ``llvm`` as default,
 because some recipes are refusing to be build with this configuration. To adresss this issues
 is recomendend to add a new file where we will add the tweeks needed to build
-sucessfully. In the public LmP we use the ``meta-lmp/meta-lmp-base/conf/distro/include/non-clangable.inc``
+sucessfully. In the public LmP layer ``meta-lmp`` we use the
+``meta-lmp-base/conf/distro/include/non-clangable.inc``
 for that propuse.
 
-Adding the same on the ``meta-subscriber-overrides`` can be a solution
-where we collect all the ``clang`` tweeks needed. This configuration
-can be added in ``meta-subscriber-overrides/conf/layer.conf`` or somewere in another global
-configurations file.
+Adding the same on the factory layer ``meta-subscriber-overrides`` can be a solution
+where we will collect all the ``clang`` tweeks needed. This configuration
+can be added in ``conf/machine/include/lmp-factory-custom.inc``
+or somewere in another global configurations file.
 
 .. prompt:: text
 
-  require meta-subscriber-overrides/conf/non-clangable.inc
+  require conf/machine/include/non-clangable.inc
+
+So we will use the factory file ``conf/machine/include/non-clangable.inc``
+to customize everything clang related.
 
 
 Changing the toolchain
 ----------------------
 
 To change the default values disabling the ``clang`` compiler globaly and use the ``gcc``
-we need to change the ``TOOLCHAIN`` value in ``meta-subscriber-overrides/conf/layer.conf``
+we need to change the ``TOOLCHAIN`` value.
 
 .. prompt:: text
 
   TOOLCHAIN = "gcc"
 
-Changing the compiler per recipe is also possible and it can be done using a bbappend
-with ``TOOLCHAIN = "gcc"`` or using the ``meta-subscriber-overrides/conf/non-clangable.inc``
+Changing the compiler per recipe is also possible and it can be done using a bbappend or
+with ``TOOLCHAIN = "gcc"`` or in the global factory ``non-clangable.inc``
 
 .. prompt:: text
 
@@ -50,7 +54,7 @@ Costumize the default toolchain
 
 When using the clang toolchain we have the ``toolchain-clang`` override that can be used
 to do the costumization and this will only take effect when clang is in use.
-All of this costumizations can be placed on ``meta-subscriber-overrides/conf/non-clangable.inc``
+All of this costumizations can be placed on the factory ``non-clangable.inc``
 
 .. prompt:: text
 
